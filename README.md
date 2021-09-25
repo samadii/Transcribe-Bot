@@ -8,6 +8,10 @@ A Telegram bot to transcribe audio, video and image into text.
 
 ## Local Deploying
 
+Make sure you have FFmpeg on the same folder as the script file if you are on Linux or Mac.
+Get it from FFmpeg's official site (www.ffmpeg.org).
+  
+
 1. Clone the repo
    ```
    git clone https://github.com/samadii/Transcribe-Bot
