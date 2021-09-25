@@ -1,0 +1,28 @@
+{
+  "name": "Transcribe-Bot",
+  "env": {
+    "API_ID": {
+      "description": "Add your telegram API_ID",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "Add your telegram API_HASH",
+      "value": ""
+    },
+    "BOT_TOKEN": {
+      "description": "Your bot token, as a string.",
+      "value": ""
+}
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    },
+    {
+      "url": "https://github.com/samadii/heroku-buildpack-tesseract"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
