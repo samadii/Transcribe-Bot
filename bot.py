@@ -75,17 +75,11 @@ async def ocr(bot, msg):
    
 @Bot.on_message(filters.private & (filters.video | filters.audio ) & ~filters.edited, group=-1)
 async def speech2txt(bot, m):
-
-    if m.audio:
-        await m.download("temp/file.mp3")
-    elif m.video:
-        await m.download(f"temp/file.{m.video.file_name.rsplit('.', 1)[1]}")
-        os.system(f"ffmpeg -i temp/file.{m.video.file_name.rsplit('.', 1)[1]} temp/file.mp3")
-
+    ext = ".mp3" if m.audio else f".{m.video.file_name.rsplit('.', 1)[1]}"
+    await m.download(f"temp/file{ext}")
     lang = await bot.ask(m.chat.id,'`Now send the BCP-47 language code.`\n\n[.](https://telegra.ph/List-of-BCP-47-language-codes-09-25-2)', filters=filters.text, parse_mode='Markdown')
     msg = await m.reply("`Processing...`", parse_mode='md')
-    os.system("ffmpeg -i temp/file.mp3 temp/file.wav")
-
+    os.system(f"ffmpeg -i temp/file{ext} temp/file.wav")
     with sr.AudioFile("temp/file.wav") as source:
         audio_data = r.record(source)
         try:
@@ -96,8 +90,6 @@ async def speech2txt(bot, m):
     await m.reply(text)
     await msg.delete()
     os.remove("temp/file.wav")
-
-
 
     
 Bot.run()
