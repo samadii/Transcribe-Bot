@@ -7,10 +7,8 @@ A Telegram bot to transcribe audio, video and image into text.
 
 
 ## Local Deploying
-
+Install the [FFmpeg](www.ffmpeg.org).
 Make sure you have FFmpeg on the same folder as the script file if you are on Linux or Mac.
-Get it from FFmpeg's official site (www.ffmpeg.org).
-  
 
 1. Clone the repo
    ```
@@ -20,23 +18,13 @@ Get it from FFmpeg's official site (www.ffmpeg.org).
    
 3. Use it to install Tesseract, Then Go to [this line](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L11) and fill the inverted commas with the PATH where Tesseract is installed.
 
-4. Replace [this PATH](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L56) with your machine compatible one of the bellow paths :
-   ```
-   /usr/local/share/tessdata/
-   ```
-   ```
-   /usr/share/tesseract-ocr/tessdata/
-   ```
-   ```
-   /usr/share/tessdata/
-   ```
-   As it depends on your local machine, try with them one by one to find the compatible one.
-   
-5. Install all requirements using pip.
+4. Fill [this PATH](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L56) with the path of the tessdata folder.
+
+6. Install all requirements using pip.
    ```
    pip3 install -r requirements.txt
    ```
-6. Run the file
+7. Run the file.
    ```
    python3 bot.py
    ```
