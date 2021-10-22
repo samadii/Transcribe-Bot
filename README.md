@@ -20,6 +20,10 @@ Make sure you have FFmpeg on the same folder as the script file if you are on Li
 
 4. Fill [this PATH](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L56) with the path of the tessdata folder.
 
+5. Enter the directory
+   ```
+   cd Transcribe-Bot
+   ```
 6. Install all requirements using pip.
    ```
    pip3 install -r requirements.txt
