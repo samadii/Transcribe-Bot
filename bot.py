@@ -79,7 +79,10 @@ async def speech2txt(bot, m):
     file_dl_path = await bot.download_media(message=m, file_name="temp/")
     lang = await bot.ask(m.chat.id,'`Now send the BCP-47 language code.`\n\n[.](https://telegra.ph/List-of-BCP-47-language-codes-09-25-2)', filters=filters.text, parse_mode='Markdown')
     msg = await m.reply("`Processing...`", parse_mode='md')
-    os.system(f"ffmpeg -i {file_dl_path} temp/file.wav")
+    if m.audio or file_dl_path.lower().endswith('.mp3'):
+        os.system(f"ffmpeg -i {file_dl_path} -c copy -y temp/file.wav")
+    else:
+        os.system(f"ffmpeg -i {file_dl_path} -y temp/file.wav")
     with sr.AudioFile("temp/file.wav") as source:
         audio_data = r.record(source)
         try:
