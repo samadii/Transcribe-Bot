@@ -75,6 +75,8 @@ async def ocr(bot, msg):
    
 @Bot.on_message(filters.private & (filters.video | filters.document | filters.audio ) & ~filters.edited, group=-1)
 async def speech2txt(bot, m):
+    if m.document and not m.document.mime_type.startswith("video/"):
+        return
     media = m.audio or m.video or m.document
     file_dl_path = await bot.download_media(message=m, file_name="temp/")
     lang = await bot.ask(m.chat.id,'`Now send the BCP-47 language code.`\n\n[.](https://telegra.ph/List-of-BCP-47-language-codes-09-25-2)', filters=filters.text, parse_mode='Markdown')
