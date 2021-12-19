@@ -3,7 +3,13 @@
 import math
 import time
 
-PROGRESS
+PROGRESS = """
+Percentage : {0}%
+Done: {1}
+Total: {2}
+Speed: {3}/s
+ETA: {4}
+"""
 
 async def progress_for_pyrogram(current, total, ud_type, message, start):
     now = time.time()
