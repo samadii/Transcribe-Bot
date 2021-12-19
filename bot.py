@@ -1,4 +1,4 @@
-import os
+import os, time
 import speech_recognition as sr
 import pytesseract
 import requests
@@ -6,6 +6,7 @@ from PIL import Image
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import MessageEmpty
+from display_progress import progress_for_pyrogram
 from pyromod import listen
 
 #pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
@@ -77,10 +78,12 @@ async def ocr(bot, msg):
 async def speech2txt(bot, m):
     if m.document and not m.document.mime_type.startswith("video/"):
         return
+    msg = await m.reply("`Downloading..`", parse_mode='md')
     media = m.audio or m.video or m.document
-    file_dl_path = await bot.download_media(message=m, file_name="temp/")
+    c_time = time.time()
+    file_dl_path = await bot.download_media(message=m, file_name="temp/", progress=progress_for_pyrogram, progress_args=("Downloading..", msg, c_time))
     lang = await bot.ask(m.chat.id,'`Now send the BCP-47 language code.`\n\n[.](https://telegra.ph/List-of-BCP-47-language-codes-09-25-2)', filters=filters.text, parse_mode='Markdown')
-    msg = await m.reply("`Processing...`", parse_mode='md')
+    await msg.edit("`Now Transcribing..`", parse_mode='md')
     os.system(f'ffmpeg -i "{file_dl_path}" -vn temp/file.wav')
 
     with sr.AudioFile("temp/file.wav") as source:
