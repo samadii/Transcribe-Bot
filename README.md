@@ -16,9 +16,9 @@ Make sure you have FFmpeg on the same folder as the script file if you are on Li
    ```
 2. Now head to [this page](https://github.com/UB-Mannheim/tesseract/wiki) and install Tesseract installer. 
    
-3. Use it to install Tesseract, Then Go to [this line](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L11) and add the PATH where Tesseract is installed.
+3. Use it to install Tesseract, Then Go to [this line](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L12) and add the PATH where Tesseract is installed.
 
-4. Fill [this PATH](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L56) with the path of the tessdata folder.
+4. Fill [this PATH](https://github.com/samadii/Transcribe-Bot/blob/main/bot.py#L57) with the path of the tessdata folder.
 
 5. Enter the directory
    ```
