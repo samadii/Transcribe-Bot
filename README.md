@@ -7,8 +7,8 @@ A Telegram bot to transcribe audio, video and image into text.
 
 
 ## Local Deploying
-Install the [FFmpeg](www.ffmpeg.org).
-Make sure you have FFmpeg on the same folder as the script file if you are on Linux or Mac.
+
+Make sure you have [FFmpeg](www.ffmpeg.org). (it must be on the same folder as the script file if you are on Linux or Mac.)
 
 1. Clone the repo
    ```
