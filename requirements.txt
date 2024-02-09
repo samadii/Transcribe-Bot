@@ -1,7 +1,7 @@
 pyrogram
 tgcrypto
 requests
-pyromod
+pyromod==1.4
 speechrecognition
 pytesseract
 Pillow
