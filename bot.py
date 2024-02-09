@@ -52,7 +52,7 @@ async def start(bot, update):
 
 @Bot.on_message(filters.private & filters.photo & ~filters.edited, group=-1)
 async def ocr(bot, msg):
-    lang_code = await bot.ask(msg.chat.id,'`Now send the ISO language code.`\n\n[List of ISO 639-2 language codes](https://en.m.wikipedia.org/wiki/List_of_ISO_639-2_codes)', filters=filters.text, parse_mode='Markdown', disable_web_page_preview=True)
+    lang_code = await bot.ask(msg.chat.id,'`Now send the ISO language code.`\n\n[List of ISO 639-2 language codes](https://en.m.wikipedia.org/wiki/List_of_ISO_639-2_codes)', filters=filters.text, disable_web_page_preview=True)
     data_url = f"https://github.com/tesseract-ocr/tessdata/raw/main/{lang_code.text}.traineddata"
     dirs = r"/app/vendor/tessdata"
     path = os.path.join(dirs, f"{lang_code.text}.traineddata")
@@ -61,7 +61,7 @@ async def ocr(bot, msg):
         if data.status_code == 200:
             open(path, 'wb').write(data.content)
         else:
-            return await msg.reply("`Either the lang code is wrong or the lang is not supported.`", parse_mode='md')
+            return await msg.reply("`Either the lang code is wrong or the lang is not supported.`")
     message = await msg.reply("`Downloading and Extracting...`", parse_mode='md')
     image = await msg.download(file_name=f"text_{msg.from_user.id}.jpg")
     img = Image.open(image)
@@ -69,7 +69,7 @@ async def ocr(bot, msg):
     try:
         await msg.reply(text[:-1], quote=True, disable_web_page_preview=True)
     except MessageEmpty:
-        return await msg.reply("`Either the image has no text or the text is not recognizable.`", quote=True, parse_mode='md')
+        return await msg.reply("`Either the image has no text or the text is not recognizable.`", quote=True)
     await message.delete()
     os.remove(image)
 
@@ -78,12 +78,12 @@ async def ocr(bot, msg):
 async def speech2txt(bot, m):
     if m.document and not m.document.mime_type.startswith("video/"):
         return
-    msg = await m.reply("`Downloading..`", parse_mode='md')
+    msg = await m.reply("`Downloading..`")
     media = m.audio or m.video or m.document
     c_time = time.time()
     file_dl_path = await bot.download_media(message=m, file_name="temp/", progress=progress_for_pyrogram, progress_args=("Downloading..", msg, c_time))
-    lang = await bot.ask(m.chat.id,'`Now send the BCP-47 language code.`\n\n[.](https://telegra.ph/List-of-BCP-47-language-codes-09-25-2)', filters=filters.text, parse_mode='Markdown')
-    await msg.edit("`Now Transcribing..`", parse_mode='md')
+    lang = await bot.ask(m.chat.id,'`Now send the BCP-47 language code.`\n\n[.](https://telegra.ph/List-of-BCP-47-language-codes-09-25-2)', filters=filters.text)
+    await msg.edit_text("`Now Transcribing..`")
     os.system(f'ffmpeg -i "{file_dl_path}" -vn temp/file.wav')
 
     with sr.AudioFile("temp/file.wav") as source:
